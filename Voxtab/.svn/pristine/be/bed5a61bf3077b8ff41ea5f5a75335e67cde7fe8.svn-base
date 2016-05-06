@@ -1,0 +1,1052 @@
+package com.voxtab.ariatech.voxtab.adapter;
+
+import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.voxtab.ariatech.voxtab.MyRecordingsActivity;
+import com.voxtab.ariatech.voxtab.R;
+import com.voxtab.ariatech.voxtab.bean.MyRecording;
+import com.voxtab.ariatech.voxtab.globaldata.GlobalData;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
+/**
+ * Created by Local User on 30-Jan-16.
+ */
+public class MyRecording_list_adapter extends BaseAdapter {
+
+    private Context context;
+    private ArrayList<MyRecording> rowItems;
+    private ArrayList<ViewHolder> viewHolderItems = new ArrayList<>();
+    // private ViewHolder holderSelected = null;
+    public ViewHolder holder = null;
+    public ViewHolder holderLastSelected = null;
+    MediaPlayer mediaPlayer = new MediaPlayer();
+
+    public SeekBar mSeekBarPlayer;
+    boolean pause = false;
+    int progresss = 0;
+
+    Timer timer = new Timer();
+    private TimerTask task;
+    int record_pos = 0;
+
+    private int current = 0;
+    private boolean running = true;
+    private int duration = 0;
+
+    boolean isActiveFlag = false;
+
+    int posLastSelected = -1 ;
+
+    public MyRecording_list_adapter(Context context, ArrayList<MyRecording> rowItems) {
+        this.context = context;
+        this.rowItems = rowItems;
+    }
+
+    @Override
+    public int getCount() {
+
+
+        return MyRecordingsActivity.recordings.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return MyRecordingsActivity.recordings.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, final ViewGroup parent) {
+        convertView = null;
+        final LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
+        try {
+
+
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = mInflater.inflate(R.layout.custom_list_recordings, null);
+
+                holder.lin_progressbar = (LinearLayout) convertView.findViewById(R.id.lin_seekbar);
+                holder.lin_progressbar.setTag(position);
+                holder.lin_progressbar.setVisibility(View.GONE);
+
+
+
+                holder.txt_filename = (TextView) convertView.findViewById(R.id.txt_filename);
+                holder.txt_date_time = (TextView) convertView.findViewById(R.id.txt_date_time);
+
+                holder.img_status = (ImageView) convertView.findViewById(R.id.img_status_icon);
+                holder.img_select = (ImageView) convertView.findViewById(R.id.img_selection_icon);
+
+                holder.img_play = (ImageView) convertView.findViewById(R.id.img_play_icon);
+                holder.img_play.setTag(position);
+                holder.progress_bar = (SeekBar) convertView.findViewById(R.id.progress_file);
+
+                holder.img_play_record = (ImageView) convertView.findViewById(R.id.img_play_record);
+                holder.img_play_record.setTag(position);
+
+                holder.textVIewInit = (TextView) convertView.findViewById(R.id.textViewInit);
+                holder.textVIewEnd = (TextView) convertView.findViewById(R.id.textViewEnd);
+
+          /*  holder.progress_bar.setProgressDrawable(context.getResources()
+                    .getDrawable(R.drawable.progress_file));
+
+*/
+                convertView.setTag(holder);
+
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            holder.progress_bar.setId(position);
+            holder.progress_bar.setTag("" + position);
+            holder.img_play.setId(position);
+            holder.img_play_record.setId(position);
+
+
+            holder.txt_filename.setText(rowItems.get(position).getRecName());
+            holder.txt_filename.setTag(position);
+
+            holder.txt_date_time.setText(rowItems.get(position).getCreatedDate());
+            holder.txt_date_time.setTag(position);
+
+
+            holder.img_status.setTag("" + position);
+            holder.img_select.setTag("" + position);
+
+            if (GlobalData.longpressFlag) {
+/*
+                SeekBar seekBar = new SeekBar(context);
+                ViewHolder viewHolder = new ViewHolder();
+                viewHolder.img_play.setImageResource(R.drawable.plat_btn);
+                viewHolder.img_play_record.setImageResource(R.drawable.play_icon);
+                MyRecordingsActivity.lst_recordings.refreshDrawableState();
+                stopAudio(seekBar, viewHolder);*/
+
+                holder.img_select.setVisibility(View.VISIBLE);
+                if (getSelectedRecordingCount() == 1) {
+                    MyRecordingsActivity.img_info.setVisibility(View.VISIBLE);
+                    MyRecordingsActivity.img_edit.setVisibility(View.VISIBLE);
+                } else {
+                    MyRecordingsActivity.img_info.setVisibility(View.GONE);
+                    MyRecordingsActivity.img_edit.setVisibility(View.GONE);
+
+                }
+
+            } else {
+                holder.img_select.setVisibility(View.GONE);
+            }
+            holder.progress_bar.setTag("" + position);
+            holder.textVIewInit.setTag("" + position);
+            holder.textVIewEnd.setTag("" + position);
+
+
+
+            MyRecording bean = MyRecordingsActivity.recordings.get(position);
+            if (bean.isSelectFlag()) {
+
+                holder.img_select.setImageResource(R.drawable.filled_tick);
+
+            } else {
+                holder.img_select.setImageResource(R.drawable.unfilled);
+
+            }
+
+
+            try {
+
+                holder.img_status.setVisibility(View.GONE);
+                int value = getImage(bean.getUpMasterId());
+
+
+                if (value != 0) {
+
+                    holder.img_status.setVisibility(View.VISIBLE);
+                    holder.img_status.setImageDrawable(context.getResources().getDrawable(value));
+                }
+
+            }catch (Exception e){
+                GlobalData.printError(e);
+            }
+
+            holder.img_play.setTag(holder);
+            holder.img_play_record.setTag(holder);
+
+//        holder.progress_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//                // TODO My code goes here
+//
+//                int CurrentLevel = seekBar.getProgress();
+//                if (CurrentLevel < 30)
+//                    CurrentLevel = 30;
+//                seek6.setProgress(CurrentLevel);
+//
+//            }
+//
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//            }
+//
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//            }
+//        });
+
+
+            holder.img_play.setOnClickListener(new View.OnClickListener() {
+                                                   @Override
+                                                   public void onClick(View v) {
+
+
+
+                                                       int postemp = 0;
+                                                       try {
+
+
+
+                                                           ViewHolder viewHoldertemp = (ViewHolder) v.getTag();
+                                                           SeekBar seekBartemp = (SeekBar) viewHoldertemp.progress_bar;
+                                                           postemp = Integer.parseInt(seekBartemp.getTag().toString());
+                                                           MyRecording bean1 = MyRecordingsActivity.recordings.get(postemp);
+
+                                                           if (bean1.isActionFlag()) {
+                                                               MyRecordingsActivity.recordings.get(postemp).setActionFlag(false);
+                                                               isActiveFlag = true;
+                                                               viewHoldertemp.lin_progressbar.setVisibility(View.VISIBLE);
+                                                               removeAllActionFlag();
+
+
+                                                               return;
+                                                           } else {
+                                                               isActiveFlag = false;
+                                                               removeAllActionFlag();
+                                                               MyRecordingsActivity.recordings.get(postemp).setActionFlag(true);
+                                                               viewHoldertemp.lin_progressbar.setVisibility(View.GONE);
+                                                           }
+
+
+
+                                                           try {
+
+
+
+                                                               if (holderLastSelected != null) {
+                                                                   holderLastSelected.lin_progressbar.setVisibility(View.GONE);
+                                                                   holderLastSelected.img_play.setImageResource(R.drawable.plat_btn);
+                                                                   holderLastSelected.img_play_record.setImageResource(R.drawable.play_icon_image);
+                                                                   MyRecordingsActivity.lst_recordings.refreshDrawableState();
+                                                                   stopAudio(holderLastSelected.progress_bar, holderLastSelected);
+                                                               }
+
+                                                           } catch (Exception e) {
+                                                               GlobalData.printError(e);
+                                                           }
+
+
+                                                           holderLastSelected = viewHoldertemp;
+
+//                                                           viewHoldertemp = (ViewHolder) getViewByPosition(postemp).getTag();
+//                                                           viewHoldertemp.textVIewInit.setText("we");
+//                                                           viewHoldertemp.textVIewEnd.setText("we");
+
+                                                           // MyRecordingsActivity.lst_recordings.invalidateViews();
+                                                           //View view=MyRecordingsActivity.lst_recordings.getChildAt(postemp);
+
+
+                                                           //   notifyDataSetChanged();
+
+                                                           //View view= updateItemAtPosition(0);
+
+
+                                                           playAudio((ViewHolder) v.getTag(), position);
+
+
+
+//                                                      MyRecordingsActivity.lst_recordings.invalidateViews();
+
+
+                                                       } catch (Exception e) {
+                                                           GlobalData.printError(e);
+                                                       }
+
+//                                                   if (holder.img_play.getTag().equals("Play")) {
+//                                                       holder.img_play.setImageResource(R.drawable.stop_icon);
+//                                                       holder.img_play.setTag("Stop");
+//
+//
+//                                                   } else {
+//
+//                                                           holder.img_play.setImageResource(R.drawable.play_icon);
+//                                                           holder.img_play.setTag("Play");
+//                                                           if (mediaPlayer != null) {
+//                                                               mediaPlayer.stop();
+//                                                               mediaPlayer.release();
+//                                                               mediaPlayer = null;
+//                                                               timer.cancel();
+//                                                               task.cancel();
+//                                                           }
+//
+//
+//                                                   }
+                                                       //   notifyDataSetChanged();
+                                                   }
+                                               }
+
+            );
+
+
+            holder.img_play_record.setOnClickListener(new View.OnClickListener() {
+                                                          @Override
+                                                          public void onClick(View v) {
+                                                              int postemp = 0;
+                                                              try {
+                                                                  ViewHolder viewHoldertemp = (ViewHolder) v.getTag();
+                                                                  SeekBar seekBartemp = (SeekBar) viewHoldertemp.progress_bar;
+                                                                  postemp = Integer.parseInt(seekBartemp.getTag().toString());
+                                                                  MyRecording bean1 = MyRecordingsActivity.recordings.get(postemp);
+
+                                                                  if (bean1.isActionFlag()) {
+                                                                      MyRecordingsActivity.recordings.get(postemp).setActionFlag(false);
+                                                                      isActiveFlag = true;
+                                                                  } else {
+                                                                      isActiveFlag = false;
+                                                                      removeAllActionFlag();
+                                                                      MyRecordingsActivity.recordings.get(postemp).setActionFlag(true);
+                                                                  }
+
+                                                                  playRecord((ViewHolder) v.getTag(), position);
+
+
+                                                              } catch (Exception e) {
+                                                                  GlobalData.printError(e);
+                                                              }
+
+
+                                                          }
+                                                      }
+
+            );
+
+
+            holder.img_select.setOnClickListener(new View.OnClickListener()
+
+                                                 {
+                                                     @Override
+                                                     public void onClick(View v) {
+
+                                                         try {
+                                                             int pos = Integer.parseInt(v.getTag().toString());
+                                                             MyRecording bean = MyRecordingsActivity.recordings.get(pos);
+
+                                                             if (bean.isSelectFlag()) {
+                                                                 MyRecordingsActivity.recordings.get(pos).setSelectFlag(false);
+                                                                 // holder.img_select.setImageResource(R.drawable.unfilled);
+
+                                                             } else {
+                                                                 MyRecordingsActivity.recordings.get(pos).setSelectFlag(true);
+                                                                 // holder.img_select.setImageResource(R.drawable.filled_tick);
+
+                                                             }
+
+                                                             int count = getSelectedRecordingCount();
+                                                             MyRecordingsActivity.txt_number_selected_files.setText(count + "");
+                                                             notifyDataSetChanged();
+
+
+                                                         } catch (Exception e) {
+                                                             GlobalData.printError(e);
+                                                         }
+
+
+                                                     }
+                                                 }
+
+            );
+
+            if (bean.isActionFlag()) {
+                holder.img_play.setImageResource(R.drawable.stop_btn);
+                holder.img_play_record.setImageResource(R.drawable.pause_icon_image);
+                holder.lin_progressbar.setVisibility(View.VISIBLE);
+
+                // record_pos = rowItems.get(position)
+
+//            holderSelected= holder;
+//            playAudio(convertView);
+                if (!isActiveFlag) {
+
+                    try {
+
+//                isActiveFlag=true;
+//               final Handler h=new Handler();
+//                Runnable r =new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        playAudio(holder,position);
+//                        h.removeMessages(0);
+//                    }
+//                };
+//
+//                h.postDelayed(r,100);
+
+
+                    } catch (Exception e) {
+                        GlobalData.printError(e);
+                    }
+                }
+
+            } else {
+                holder.img_play.setImageResource(R.drawable.plat_btn);
+                holder.img_play_record.setImageResource(R.drawable.play_icon_image);
+
+            }
+
+
+            viewHolderItems.add(position, holder);
+
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+        return convertView;
+    }
+
+
+    public void removeAllActionFlag() {
+
+        try {
+
+            for (int i = 0; i < MyRecordingsActivity.recordings.size(); i++) {
+
+                MyRecordingsActivity.recordings.get(i).setActionFlag(false);
+            }
+
+            GlobalData.longpressFlag =false;
+
+
+            try {
+                notifyDataSetChanged();
+//                MyRecordingsActivity.lst_recordings.setAdapter( MyRecordingsActivity. lst_recordings.getAdapter());
+            }catch (Exception e){
+                GlobalData.printError(e);
+            }
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+    }
+
+
+    public static class ViewHolder {
+
+        TextView txt_filename, txt_date_time;
+        ImageView img_status, img_select, img_play, img_play_record;
+        SeekBar progress_bar;
+        LinearLayout lin_progressbar;
+        TextView textVIewInit;
+        TextView textVIewEnd;
+
+
+    }
+
+    public void playAudio(String path, final SeekBar mBar, final ViewHolder holder) {
+
+        try {
+
+//            this.holderSelected= holder;
+
+            try {
+
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
+
+            } catch (Exception e) {
+                GlobalData.printError(e);
+            } finally {
+
+                mediaPlayer = new MediaPlayer();
+            }
+
+
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            try {
+                mediaPlayer.setDataSource(path);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.prepareAsync();
+
+
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+// TODO Auto-generated method stub
+//your code if the file was completely played either show an alert to user or start another activity or file.
+//even you can finish you activity here
+
+                    try {
+                        if (holderLastSelected != null) {
+                            holderLastSelected.lin_progressbar.setVisibility(View.VISIBLE);
+                            holderLastSelected.img_play.setImageResource(R.drawable.plat_btn);
+                            holderLastSelected.img_play_record.setImageResource(R.drawable.play_icon_image);
+                            MyRecordingsActivity.lst_recordings.refreshDrawableState();
+                            stopAudio(holderLastSelected.progress_bar, holderLastSelected);
+                        }
+                    } catch (Exception e) {
+                        GlobalData.printError(e);
+                    }
+                }
+            });
+
+            // You can show progress dialog here untill it prepared to play
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(final MediaPlayer mp) {
+                    // Now dismis progress dialog, Media palyer will start playing
+
+
+                    mp.start();
+                    try {
+
+                        holder.textVIewEnd.setText("" + GlobalData.convertSecondsToHMmSs(mp.getDuration()));
+                        holder.textVIewEnd.setVisibility(View.VISIBLE);
+                        holder.textVIewInit.setVisibility(View.VISIBLE);
+
+                    } catch (Exception e) {
+                        GlobalData.printError(e);
+                    }
+
+                    duration = mediaPlayer.getDuration();
+                    mSeekBarPlayer.setMax(duration);
+                    mSeekBarPlayer.postDelayed(onEverySecond, 1000);
+
+//                    notifyDataSetChanged();
+
+                    try {
+                        //holder.progress_bar.setMax(mp.getDuration());
+
+                        int duration = mp.getDuration();
+                        int period = duration / 1000;
+                        task = new TimerTask() {
+
+                            @Override
+                            public void run() {
+                                mBar.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (!pause) {
+
+                                            try {
+                                                progresss++;
+                                                // mBar.setProgress(progresss);
+                                                holder.textVIewInit.setText("" + GlobalData.convertSecondsToHMmSs(mp.getCurrentPosition()));
+                                                //  holder.progress_bar.setMax(mp.getCurrentPosition());
+                                            } catch (Exception e) {
+                                                GlobalData.printError(e);
+                                            }
+
+                                        }
+                                    }
+                                });
+                            }
+                        };
+                        timer = new Timer();
+                        timer.schedule(task, 0, period * 10);
+
+
+                    } catch (Exception e) {
+                        GlobalData.printError(e);
+                    }
+
+                }
+            });
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    return false;
+                }
+            });
+
+
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+
+
+    }
+
+    public void stopAudio(SeekBar seekBar, ViewHolder holder) {
+
+        try {
+
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+
+                try {
+                    mSeekBarPlayer.removeCallbacks(onEverySecond);
+                    mSeekBarPlayer.setProgress(0);
+                } catch (Exception e) {
+                    GlobalData.printError(e);
+                }
+
+                mediaPlayer.release();
+                mediaPlayer = null;
+
+                try {
+                    timer.cancel();
+                    task.cancel();
+                }catch (Exception e){
+                    GlobalData.printError(e);
+                }
+
+
+            }
+
+            holder.textVIewEnd.setText("");
+            holder.textVIewEnd.setVisibility(View.VISIBLE);
+            holder.textVIewInit.setVisibility(View.VISIBLE);
+
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+
+//        notifyDataSetChanged();
+    }
+
+
+    //
+    private Runnable onEverySecond = new Runnable() {
+        @Override
+        public void run() {
+
+            try {
+
+                if (true == running) {
+                    if (mSeekBarPlayer != null) {
+                        mSeekBarPlayer.setProgress(mediaPlayer.getCurrentPosition());
+                    }
+
+                    if (mediaPlayer.isPlaying()) {
+                        try {
+
+                            holder.textVIewInit.setText("" + GlobalData.convertSecondsToHMmSs(mediaPlayer.getCurrentPosition()));
+                        } catch (Exception e) {
+                            GlobalData.printError(e);
+                        }
+                        mSeekBarPlayer.postDelayed(onEverySecond, 1000);
+                        // updateTime();
+                    }
+                }
+
+
+            } catch (Exception e) {
+                GlobalData.printError(e);
+            }
+        }
+    };
+
+
+    private void updateTime() {
+
+
+        do {
+            try {
+
+
+                current = mediaPlayer.getCurrentPosition();
+                System.out.println("duration - " + duration + " current- "
+                        + current);
+                int dSeconds = (int) (duration / 1000) % 60;
+                int dMinutes = (int) ((duration / (1000 * 60)) % 60);
+                int dHours = (int) ((duration / (1000 * 60 * 60)) % 24);
+
+                int cSeconds = (int) (current / 1000) % 60;
+                int cMinutes = (int) ((current / (1000 * 60)) % 60);
+                int cHours = (int) ((current / (1000 * 60 * 60)) % 24);
+
+                if (dHours == 0) {
+                    holder.textVIewInit.setText(String.format("%02d:%02d / %02d:%02d", cMinutes, cSeconds, dMinutes, dSeconds));
+                } else {
+                    holder.textVIewInit.setText(String.format("%02d:%02d:%02d / %02d:%02d:%02d", cHours, cMinutes, cSeconds, dHours, dMinutes, dSeconds));
+                }
+
+                try {
+                    Log.d("Value: ", String.valueOf((int) (current * 100 / duration)));
+                    if (mSeekBarPlayer.getProgress() >= 100) {
+                        break;
+                    }
+                } catch (Exception e) {
+                }
+
+
+            } catch (Exception e) {
+                GlobalData.printError(e);
+            }
+        } while (mSeekBarPlayer.getProgress() <= 100);
+
+
+    }
+
+    private View updateItemAtPosition(int position) {
+
+        View view = null;
+        try {
+
+            int visiblePosition = MyRecordingsActivity.lst_recordings.getFirstVisiblePosition();
+            view = MyRecordingsActivity.lst_recordings.getChildAt(position - visiblePosition);
+            MyRecordingsActivity.lst_recordings.getAdapter().getView(position, view, MyRecordingsActivity.lst_recordings);
+
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+
+        return view;
+    }
+
+    private View updateItemAtAllPosition(int position) {
+
+        View view = null;
+        try {
+            MyRecordingsActivity.lst_recordings.setAdapter(MyRecordingsActivity.lst_recordings.getAdapter());
+
+            for (int i = 0; i < MyRecordingsActivity.lst_recordings.getAdapter().getCount(); i++) {
+
+//                int visiblePosition = MyRecordingsActivity.lst_recordings.getFirstVisiblePosition();
+//                 MyRecordingsActivity.lst_recordings.getChildAt(i - visiblePosition);
+
+                if (i == position) {
+                    view = getView(i, null, MyRecordingsActivity.lst_recordings);
+                }
+
+
+                //MyRecordingsActivity.lst_recordings.getAdapter().getView(position, view, MyRecordingsActivity.lst_recordings);
+            }
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+
+        return view;
+    }
+
+
+    public void playAudio(ViewHolder viewHolder, int position) {
+
+        try {
+
+            int pos = -1;
+
+         ViewHolder temp=(ViewHolder)  getViewByPosition(position).getTag();
+            temp.textVIewInit.setText("we");
+            temp.textVIewEnd.setText("we");
+
+
+            return;
+
+
+
+//            SeekBar seekBar = new SeekBar(context);
+//
+//            TextView textViewEnd;
+//            TextView textViewstart;
+//            //  ViewHolder viewHolder=new ViewHolder();
+//            try {
+//
+//
+//                // viewHolder = (ViewHolder) view.getTag();
+////                viewHolder =this.holderSelected;
+//                seekBar = (SeekBar) viewHolder.progress_bar;
+//                textViewEnd = (TextView) viewHolder.textVIewEnd;
+//                textViewstart = (TextView) viewHolder.textVIewInit;
+//
+//                holderLastSelected.textVIewEnd.setVisibility(View
+//                        .VISIBLE);
+//
+//
+//
+//
+//                textViewstart.setVisibility(View.VISIBLE);
+//                textViewEnd.setVisibility(View.VISIBLE);
+//
+//
+//                pos = Integer.parseInt(seekBar.getTag().toString());
+//
+//            } catch (Exception e) {
+//                GlobalData.printError(e);
+//            }
+//
+//
+//            MyRecording bean = MyRecordingsActivity.recordings.get(pos);
+//
+//
+//
+//
+//            if (!bean.isActionFlag()) {
+//                // MyRecordingsActivity.recordings.get(pos).setActionFlag(false);
+//                viewHolder.img_play.setImageResource(R.drawable.plat_btn);
+//                viewHolder.img_play_record.setImageResource(R.drawable.play_icon_image);
+//                viewHolder.lin_progressbar.setVisibility(View.GONE);
+//                MyRecordingsActivity.lst_recordings.refreshDrawableState();
+//                stopAudio(seekBar, viewHolder);
+//
+//            } else {
+//
+//
+//
+//                holderLastSelected = viewHolder;
+//                //  removeAllActionFlag();
+//                // MyRecordingsActivity.recordings.get(pos).setActionFlag(true);
+//                viewHolder.img_play.setImageResource(R.drawable.stop_btn);
+//                viewHolder.img_play_record.setImageResource(R.drawable.pause_icon_image);
+//                viewHolder.lin_progressbar.setVisibility(View.VISIBLE);
+//                MyRecordingsActivity.lst_recordings.refreshDrawableState();
+//
+//                //selected Seekbar
+//                mSeekBarPlayer = seekBar;
+//
+//                mSeekBarPlayer.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//                    @Override
+//                    public void onStopTrackingTouch(SeekBar seekBar) {
+//                    }
+//
+//                    @Override
+//                    public void onStartTrackingTouch(SeekBar seekBar) {
+//                    }
+//
+//                    @Override
+//                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                        try {
+//                            if (fromUser) {
+//                                mSeekBarPlayer = seekBar;
+//                                mediaPlayer.seekTo(progress);
+//                                // updateTime();
+//                            }
+//                        } catch (Exception e) {
+//                            GlobalData.printError(e);
+//                        }
+//                    }
+//                });
+//
+//
+//                playAudio(MyRecordingsActivity.recordings.get(pos).getRecLocalPath(), seekBar, viewHolder);
+//                MyRecordingsActivity.lst_recordings.setSelection(position);
+//            }
+
+
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+
+            return;
+    }
+
+
+    public int getSelectedRecordingCount() {
+        int count = 0;
+        try {
+
+            for (int i = 0; i < MyRecordingsActivity.recordings.size(); i++) {
+                if (MyRecordingsActivity.recordings.get(i).isSelectFlag()) {
+                    count = count + 1;
+                }
+            }
+
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+
+        return count;
+
+    }
+
+
+    //play and pause recording
+    public void playRecord(ViewHolder viewHolder, int position) {
+
+        try {
+            int pos = -1;
+            SeekBar seekBar = new SeekBar(context);
+
+            TextView textViewEnd;
+            TextView textViewstart;
+            try {
+                seekBar = (SeekBar) viewHolder.progress_bar;
+                textViewEnd = (TextView) viewHolder.textVIewEnd;
+                textViewstart = (TextView) viewHolder.textVIewInit;
+
+                //textViewEnd.setText("");
+
+                textViewstart.setVisibility(View.VISIBLE);
+                textViewEnd.setVisibility(View.VISIBLE);
+
+                pos = Integer.parseInt(seekBar.getTag().toString());
+
+            } catch (Exception e) {
+                GlobalData.printError(e);
+            }
+
+            MyRecording bean = MyRecordingsActivity.recordings.get(pos);
+            if (!bean.isActionFlag()) {
+                viewHolder.img_play_record.setImageResource(R.drawable.play_icon_image);
+                viewHolder.lin_progressbar.setVisibility(View.VISIBLE);
+                MyRecordingsActivity.lst_recordings.refreshDrawableState();
+                //stopAudio(seekBar, viewHolder);
+                pauseAudio(holderLastSelected.progress_bar, holderLastSelected);
+
+            } else {
+
+                try {
+                    if (holderLastSelected != null) {
+                        holderLastSelected.lin_progressbar.setVisibility(View.VISIBLE);
+                        holderLastSelected.img_play_record.setImageResource(R.drawable.pause_icon_image);
+                        MyRecordingsActivity.lst_recordings.refreshDrawableState();
+                        //pauseAudio(holderLastSelected.progress_bar, holderLastSelected);
+                    }
+
+                } catch (Exception e) {
+                    GlobalData.printError(e);
+                }
+
+              /*  holderLastSelected = viewHolder;
+                viewHolder.img_play_record.setImageResource(R.drawable.pause_icon_image);
+                viewHolder.lin_progressbar.setVisibility(View.VISIBLE);
+                MyRecordingsActivity.lst_recordings.refreshDrawableState();*/
+
+                //selected Seekbar
+                mSeekBarPlayer = seekBar;
+                mSeekBarPlayer.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        try {
+                            if (fromUser) {
+                                mSeekBarPlayer = seekBar;
+                                mediaPlayer.seekTo(progress);
+                                // updateTime();
+                            }
+                        } catch (Exception e) {
+                            GlobalData.printError(e);
+                        }
+                    }
+                });
+                //playAudio(MyRecordingsActivity.recordings.get(pos).getRecLocalPath(), seekBar, viewHolder);
+                pauseAudio(holderLastSelected.progress_bar, holderLastSelected);
+            }
+
+            MyRecordingsActivity.lst_recordings.setSelection(position);
+
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+    }
+
+    //pause recording
+    public void pauseAudio(SeekBar seekBar, ViewHolder viewHolder) {
+        try {
+
+            int length = mediaPlayer.getCurrentPosition();
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+
+
+            } else {
+                mediaPlayer.seekTo(length);
+                mediaPlayer.start();
+            }
+
+        } catch (Exception e) {
+            GlobalData.printError(e);
+        }
+    }
+
+
+    public int  getImage(String fileStatus){
+
+        int  drawable    =0;
+
+
+        switch (fileStatus){
+
+
+            case "complete":
+                drawable = R.drawable.delivered_completed;
+
+                break;
+            case "failed":
+                drawable = R.drawable.upload_failed;
+
+                break;
+            case "qcheck":
+                drawable = R.drawable.flag_icon;
+
+                break;
+            case "uploaded":
+                drawable = R.drawable.upload_successful;
+
+                break;
+            case "uploading":
+                drawable = R.drawable.audio_uploaded_icon;
+
+                break;
+            case "progress":
+                drawable = R.drawable.accelerator_icon;
+
+                break;
+
+            case "ordplaced":
+                drawable = R.drawable.order_placed_icon;
+
+                break;
+
+        }
+
+
+
+        return  drawable;
+
+    }
+
+    public View getViewByPosition(int pos) {
+        final int firstListItemPosition = MyRecordingsActivity.lst_recordings.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + MyRecordingsActivity.lst_recordings.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
+            return MyRecordingsActivity.lst_recordings.getAdapter().getView(pos, null, MyRecordingsActivity.lst_recordings);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return MyRecordingsActivity.lst_recordings.getChildAt(childIndex);
+        }
+    }
+
+
+}

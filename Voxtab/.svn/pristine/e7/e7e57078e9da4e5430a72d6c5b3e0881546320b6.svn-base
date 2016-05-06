@@ -1,0 +1,742 @@
+package com.voxtab.ariatech.voxtab.globaldata;
+
+
+import android.content.Context;
+
+import com.ariatech.lib_project.WebCommunicator;
+
+import org.json.JSONObject;
+
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+
+public class WebServiceMySQl {
+
+
+
+	String res = "";
+
+	//Common Methods
+
+	//Upload File
+	Context context ;
+
+	public WebServiceMySQl(Context context){
+		this.context=context;
+	}
+
+	public  String uploadFile(String sourceFileUri, String[] params) {
+
+		String fileName = sourceFileUri;
+		String serverResponseMessage = "";
+		HttpURLConnection conn = null;
+		DataOutputStream dos = null;
+		String lineEnd = "\r\n";
+		String twoHyphens = "--";
+		String boundary = "*****";
+		int bytesRead, bytesAvailable, bufferSize;
+		byte[] buffer;
+		int maxBufferSize = 1 * 1024 * 1024;
+		File sourceFile = new File(sourceFileUri);
+		int serverResponseCode =0;
+		if (!sourceFile.isFile()) {
+//            dialog.dismiss();
+			return "File not Found";
+		} else {
+			FileInputStream fileInputStream = null;
+			try {
+				// open a URL connection to the Servlet
+
+				fileInputStream = new FileInputStream(sourceFile);
+				java.net.URL url = new java.net.URL(GlobalData.UPLOAD_FILE);
+
+				// Open a HTTP  connection to  the URL
+				conn = (HttpURLConnection) url.openConnection();
+				conn.setDoInput(true); // Allow Inputs
+				conn.setDoOutput(true); // Allow Outputs
+				conn.setUseCaches(false); // Don't use a Cached Copy
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Connection", "Keep-Alive");
+				conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+				conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+				conn.setRequestProperty("FilePath", fileName);
+                  /* conn.setRequestProperty("userid", ""+74);
+                  conn.setRequestProperty("videotype", ""+7); */
+
+
+				dos = new DataOutputStream(conn.getOutputStream());
+				int count =(params.length/2);
+				for (int i = 0; i<params.length  ;i=i+2) {
+
+					try {
+
+						dos.writeBytes(twoHyphens + boundary + lineEnd);
+						dos.writeBytes("Content-Disposition: form-data; name=\""+params[i]+"\"" + lineEnd);
+						dos.writeBytes(lineEnd);
+						dos.writeBytes("" + params[i+1]);
+						dos.writeBytes(lineEnd);
+						dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+
+
+					}catch (Exception e){
+						GlobalData.printError(e);
+					}
+				}
+
+
+				dos.writeBytes(twoHyphens + boundary + lineEnd);
+				dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+						+ fileName + "\"" + lineEnd);
+
+				dos.writeBytes(lineEnd);
+				// create a buffer of  maximum size
+
+				bytesAvailable = fileInputStream.available();
+
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				buffer = new byte[bufferSize];
+
+				// read file and write it into form...
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+				while (bytesRead > 0) {
+
+					dos.write(buffer, 0, bufferSize);
+					bytesAvailable = fileInputStream.available();
+					bufferSize = Math.min(bytesAvailable, maxBufferSize);
+					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+				}
+
+				// send multipart form data necesssary after file data...
+				dos.writeBytes(lineEnd);
+				dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+				// Responses from the server (code and message)
+				serverResponseCode = conn.getResponseCode();
+//           serverResponseMessage = conn.getResponseMessage();
+
+
+				try {
+					InputStream is = null;
+
+					is = conn.getInputStream();
+					int ch;
+					StringBuffer sb = new StringBuffer();
+					while ((ch = is.read()) != -1) {
+						sb.append((char) ch);
+					}
+					serverResponseMessage= sb.toString();
+				}catch (Exception e){
+					GlobalData.printError(e);
+				}
+
+
+
+
+
+
+//
+//          GlobalData.printMessage("uploadFile", "HTTP Response is : "+ serverResponseMessage + ": " + serverResponseCode);
+
+				//close the streams //
+
+				fileInputStream.close();
+				dos.flush();
+				dos.close();
+			} catch (Exception ex) {
+//                dialog.dismiss();
+				GlobalData.printError( ex);
+			}
+//            dialog.dismiss();
+			return serverResponseMessage;
+
+		} // End else block
+	}
+
+
+
+
+
+
+
+
+	// Web services
+	
+//	1: GetMasterUpdateResult
+	public WebServiceResonse GetMasterUpdateResult( String masterjson ) throws Exception {
+
+		//(string api_key,string language, string device_type, string current_version,  string masterjson)
+		WebServiceResonse resonse = new WebServiceResonse();
+		res = "";
+
+		if(GlobalData.deviceInfo== null){
+			GlobalData.deviceInfo = new DeviceInfo(context);
+		}
+
+
+
+
+		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+				"language","" + GlobalData.deviceInfo.getLanguage(),
+				"device_type","" + GlobalData.deviceType,
+				"current_version","" +  GlobalData.deviceInfo.getCurrent_version(),
+				"masterjson",""+ java.net.URLEncoder.encode( masterjson)  };
+
+		try {
+			res = WebCommunicator.setHttpGETCall(GlobalData.URL+"/"+GlobalData.webSrviceGetMasterData+"/",params);
+
+
+
+			resonse.parseData(res);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			GlobalData.printMessage("====Error===" + e.toString());
+
+		}
+
+		return resonse;
+	}
+
+
+	//  2: PlaceOrder
+	public WebServiceResonse PlaceOrder    ( JSONObject orderjson,JSONObject file_meta_json, JSONObject userjson) throws Exception {
+
+		//(string api_key,string language, string device_type, string current_version,  string masterjson)
+		WebServiceResonse resonse = new WebServiceResonse();
+		//orderjson ="{\"user_id\": \"1\",\"client_instruction\": \"Test client Instruction \", \"total_files\": \"2\", \"service_type_id\": \"eng\", \"trans_type_id\": \"simple\", \"delivery_opt_id\": \"STD\", \"vas_id\": \"copy-edit\", \"invoice_type_id\": \"\", \"subject_of_file\": \"Test First Order\", \"connection_type\": \"WiFi\",  \"total_duration\": \"100\", \"delivery_date\": \"2016-10-13 00:00:00\", \"total_fees\": \"100\", \"order_placed_details\": \"order place details\", \"order_complete_details\": \"order complete details\"} ";
+
+		res = "";
+		if(GlobalData.deviceInfo== null){
+			GlobalData.deviceInfo = new DeviceInfo(context);
+		}
+
+		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+				"language","eng" + GlobalData.deviceInfo.getLanguage(),
+				"user_id",""+GlobalData.userSelected.getUser_id()   };
+//          "orderjson","" ,
+//          "file_meta_json","" ,
+//          "userjson",""  };
+
+
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("api_key",""+GlobalData.SERVERAPIKEY);
+		jsonObject.put("language","eng" + GlobalData.deviceInfo.getLanguage());
+		jsonObject.put("user_id",""+GlobalData.userSelected.getUser_id());
+		jsonObject.put("orderjson",orderjson);
+		jsonObject.put("file_meta_json",file_meta_json);
+		jsonObject.put("userjson",userjson);
+
+		JSONObject jsonObjectData =new JSONObject();
+		jsonObjectData.put("data",jsonObject);
+
+
+		try {
+			res = WebCommunicator.setHttpPOSTCall_2(GlobalData.URL + "/" + GlobalData.webSrvicePlaceOrder + "", jsonObjectData.toString());
+
+
+
+			resonse.parseData(res);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			GlobalData.printMessage("====Error===" + e.toString());
+
+		}
+
+		//res
+//    <string>{"status":"200","message": "Your Order with Assignment number CAPGEJ-3M is now confirmed !","assignment_no":"CAPGEJ-3M" ,
+//     "file_meta_json":"[ {"order_media_id": "5", "user_id": "2", "assignment_no": "CAPGEJ-3M", "file_status": "6", "source_type": "66", "file_name": "666", "file_description": "666"},{"order_media_id": "6", "user_id": "2", "assignment_no": "CAPGEJ-3M", "file_status": "6", "source_type": "66", "file_name": "33333", "file_description": "666"}]"}
+//     </string>
+
+
+		return resonse;
+	}
+
+
+	//  3: GetOrderList
+	public WebServiceResonse GetOrderList( int offset, int limit ) throws Exception {
+
+
+		if(GlobalData.deviceInfo== null){
+			GlobalData.deviceInfo = new DeviceInfo(context);
+		}
+
+		//(string api_key,string language, string device_type, string current_version,  string masterjson)
+		WebServiceResonse resonse = new WebServiceResonse();
+		res = "";
+		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+				"user_id",""+GlobalData.userSelected.getUser_id()  /*GlobalData.userSelected.getUser_id()*/ };
+
+		try {
+			res = WebCommunicator.setHttpGETCall(GlobalData.URL+"/"+GlobalData.webSrviceGetOrderList+"/",params);
+			resonse.parseData(res);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			GlobalData.printMessage("====Error===" + e.toString());
+
+		}
+
+		return resonse;
+	}
+
+
+
+	// 4: Login
+
+	//  2: PlaceOrder
+	public WebServiceResonse Login    ( String email ,String password) throws Exception {
+
+	WebServiceResonse resonse = new WebServiceResonse();
+
+		res = "";
+
+		if(GlobalData.deviceInfo== null){
+			GlobalData.deviceInfo = new DeviceInfo(context);
+		}
+
+
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("api_key",""+GlobalData.SERVERAPIKEY);
+		jsonObject.put("email","" + email);
+		jsonObject.put("password",""+password);
+		jsonObject.put("imei",""+GlobalData.deviceInfo.getImei());
+		jsonObject.put("device_type","1");
+
+		JSONObject jsonObjectData =new JSONObject();
+		jsonObjectData.put("data",jsonObject);
+
+
+		try {
+			res = WebCommunicator.setHttpPOSTCall_2(GlobalData.URL + "/" + GlobalData.webSrviceLogin + "", jsonObjectData.toString());
+
+
+
+			resonse.parseData(res);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			GlobalData.printMessage("====Error===" + e.toString());
+
+		}
+
+		//res
+//		{
+//			"status": "200",
+//				"message": "User logged in successfully",
+//				"user_id": "1",
+//				"membership_id": "CAPGEJ",
+//				"company_info": [{
+//			"membership_id": "CAPGEJ",
+//					"org_name_eng": "CapGemini",
+//					"org_name_fn": "",
+//					"status": "1",
+//					"client_type": "",
+//					"date_of_invoice": "",
+//					"name_of_invoice": "",
+//					"business_type": "",
+//					"template": "",
+//					"client_instruction": "Capgemini client instruction",
+//					"payment_instruction": "",
+//					"modified_date": "",
+//					"created_date": "28-03-2016 17:29:11",
+//					"soft_del": "1",
+//					"assignment_count": "16"
+//		}],
+//			"company_location": [{
+//			"client_location_id": "1",
+//					"membership_id": "CAPGEJ",
+//					"city": "Tokyo",
+//					"state": "",
+//					"country": "Japan",
+//					"pincode": "",
+//					"landline": "",
+//					"email": "test@capgemini.com",
+//					"mobile": "1111111",
+//					"website": "capgemini.com",
+//					"currency": "yen",
+//					"address": "abc apartment",
+//					"modified_date": "",
+//					"created_date": "28-03-2016 17:30:34",
+//					"soft_del": "1"
+//		}]
+//		}
+
+
+
+		return resonse;
+	}
+
+
+//
+////	2: GetUpdates:Get Master Data - Splash Screen
+//	public WebServiceResonse GetUpdates(String hospital_timestamp, String procedure_timestamp,
+//			String speciality_timestamp, String roomdetail_timestamp, String req_time_period_timestamp, String hosp_spec_timestamp, String addonjson  ) throws Exception {
+//
+//		//Param
+////		api_key
+////		device_type
+////		current_version
+////		hospital_timestamp[optional]
+////		procedure_timestamp [optional]
+////		speciality_timestamp [optional]
+////		addonjson [optional]
+//
+//
+//
+//
+//
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"device_type","" + GlobalData.deviceInfo.getDevice_type(),
+//				"current_version","" + GlobalData.deviceInfo.getCurrent_version(),
+//
+//				"hospital_timestamp","" + hospital_timestamp,
+//				"procedure_timestamp","" + procedure_timestamp
+//				,"speciality_timestamp","" + speciality_timestamp,
+//				"roomdetail_timestamp",""+roomdetail_timestamp,
+//				"req_time_period_timestamp",""+req_time_period_timestamp,
+//				"hosp_spec_timestamp",""+hosp_spec_timestamp,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_GetUpdates, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//	//3: RegisterUser: RegisterUser- SendQuotes
+//	public WebServiceResonse RegisterUser(String first_name, String last_name,
+//										String emailid, String mobile, String addonjson  ) throws Exception {
+//
+//		//Param
+////		RegisterUser(string api_key, string first_name, string last_name,
+////				string emailid, string mobile, string imei, string addonjson)
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"first_name","" +first_name,
+//				"last_name","" + last_name,
+//
+//				"emailid","" + emailid,
+//				"mobile","" + mobile
+//				,"imei","" + GlobalData.deviceInfo.getImei(),
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_RegisterUser, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//	//3: AddRequestDetails: RegisterUser- SendQuotes
+//	public WebServiceResonse AddRequestDetails(String patient_json, String req_hosp_json, String addonjson  ) throws Exception {
+//
+//		//Param
+////		AddRequestDetails(string api_key, string patient_json, string req_hosp_json,string addonjson)
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"patient_json","" + patient_json,
+//				"req_hosp_json","" + req_hosp_json,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_AddRequestDetails, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//
+//
+//	//3: AddRequestDetails: RegisterUser- SendQuotes
+//	public WebServiceResonse uploadAttachment(String request_id, String userid, String name  , String type  , String file_extention,String sourceFileUri  ) throws Exception {
+//
+//		//Param
+////		AddRequestDetails(string api_key, string patient_json, string req_hosp_json,string addonjson)
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"file_extention","" + file_extention,
+//				"type","" + type,
+//				"request_id",""+request_id,
+//				"userid","" + userid,
+//				"name","" + name
+//
+//				};
+//
+//		try {
+//			uploadFile(sourceFileUri,params);
+//
+//
+//			resonse.setStatus(200);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//
+//	//4: GetRequestList
+//
+//	public WebServiceResonse GetRequestList(String user_id, int offset,
+//										  int limit,  String addonjson  ) throws Exception {
+//
+//		//Param
+////		GetRequestList(string api_key, string user_id,
+//// string offset, string limit, string addonjson)
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"user_id","" +user_id,
+//				"offset","" + offset,
+//				"limit","" + limit,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_GetRequestList, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//	//5:GetRequestDetails
+//
+//	public WebServiceResonse GetRequestDetails(int request_id,
+//											  String addonjson  ) throws Exception {
+//
+//		//Param
+////		GetRequestDetails(string api_key, string request_id, string addonjson)
+//
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"request_id","" +request_id,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_GetRequestDetails, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//	//6: GetResponseDetails(string api_key, string request_id, string addonjson)
+//
+//
+//	//5:GetResponseDetails
+//
+//	public WebServiceResonse GetResponseDetails(int request_id,
+//											   String addonjson  ) throws Exception {
+//
+//		//Param
+////		 GetResponseDetails(string api_key, string request_id, string addonjson)
+//
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"request_id","" + request_id,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_GetResponseDetails, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//
+//	//6: Login : user login
+//
+//
+//
+//	public WebServiceResonse Login(String emailid,String password,
+//												String addonjson  ) throws Exception {
+//
+//		//Param
+////		 Login(string api_key, string emailid, string password, string imei,string type, string addonjson)
+//
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"emailid","" +emailid,
+//				"password","" +password,
+//				"imei","" +GlobalData.deviceInfo.getImei(),
+//				"type","1" ,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_Login, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//
+//	//7: GetHospitalDetails
+//
+//	public WebServiceResonse GetHospitalDetails(int hospital_id,
+//								   String addonjson  ) throws Exception {
+//
+//		//Param
+////		 Login(string api_key, string emailid, string password, string imei,string type, string addonjson)
+//
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"hospital_id","" +hospital_id,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_GetHospitalDetails, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//
+//	//8: ForgotPassword
+//
+//	public WebServiceResonse ForgotPassword(String email,
+//												String addonjson  ) throws Exception {
+//
+//		//Param
+////		 Login(string api_key, string emailid, string password, string imei,string type, string addonjson)
+//
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"email","" +email,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_ForgotPassword, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+//
+//
+//	//9: GetAllPackages
+//
+//	public WebServiceResonse GetAllPackages(String package_timestamp,
+//											String addonjson  ) throws Exception {
+//
+//		//Param
+////		 Login(string api_key, string emailid, string password, string imei,string type, string addonjson)
+//
+//		WebServiceResonse resonse = new WebServiceResonse();
+//		res = "";
+//		String[] params = new String[]{"api_key",""+GlobalData.SERVERAPIKEY,
+//				"package_timestamp","" +package_timestamp,
+//				"addonjson","" + addonjson};
+//
+//		try {
+//			res = WebCommunicator.setWebServiceSOAPCall(
+//					GlobalData.webserviceURL, GlobalData.SOAP, GlobalData.NAMESPACE,
+//					GlobalData.METHOD_NAME_GetAllPackages, params);
+//
+//			resonse.parseData(res);
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			GlobalData.printMessage("====Error===" + e.toString());
+//
+//		}
+//
+//		return resonse;
+//	}
+}

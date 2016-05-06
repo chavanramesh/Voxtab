@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:background="@drawable/selected_file_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/btn_padding"
+        android:layout_marginBottom="4dp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/txt_selected_file"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight=".70"
+            android:gravity="left"
+            android:paddingBottom="4dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:singleLine="true"
+            android:text="@string/selected_files"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/txtmemid_size" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:layout_weight=".10"
+            android:src="@drawable/timer" />
+
+        <TextView
+            android:id="@+id/txt_file_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight=".20"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
+
+            android:text="00:24:38"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/txtmemid_size" />
+
+    </LinearLayout>
+</LinearLayout>

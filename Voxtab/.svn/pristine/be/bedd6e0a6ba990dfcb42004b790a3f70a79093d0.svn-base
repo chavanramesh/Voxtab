@@ -1,0 +1,80 @@
+package com.voxtab.ariatech.voxtab;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+
+import com.voxtab.ariatech.voxtab.globaldata.DeviceInfo;
+import com.voxtab.ariatech.voxtab.globaldata.GetMasterData;
+import com.voxtab.ariatech.voxtab.globaldata.GlobalData;
+
+public class SplashActivity extends Activity {
+
+    private Context context;
+    private Handler handler;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+
+        GlobalData.activities.add(SplashActivity.this);
+        context = SplashActivity.this;
+        GlobalData.deviceInfo=new DeviceInfo(context);
+        // Set device Information
+        GlobalData.setDeviceInfo(context);
+       /* DatabaseHandler db = new DatabaseHandler(this);
+        db.initDatabase();*/
+
+        new GetMasterData(context).execute();
+
+        // Set User Data
+        GlobalData.setUserData(context);
+
+        handler = new Handler();
+        handler.postDelayed(r, 3000);
+    }
+
+
+    private Runnable r = new Runnable() {
+
+        public void run() {
+            // TODO Auto-generated method stub
+            /**/
+
+            startActivity(new Intent(SplashActivity.this,
+                    HomeActivity.class));
+            /*startActivity(new Intent(SplashActivity.this,
+                    LoginActivity.class));*/
+            finish();
+
+            /*if (CommonUtil.getSharePreferenceString(context, GlobalData.SHARE_LEVEL, "").equalsIgnoreCase("1")) {
+                startActivity(new Intent(SplashActivity.this,
+                        MenuActivity.class));
+                finish();
+            }*//* else {
+                startActivity(new Intent(SplashActivity.this,
+                        SignInActivity.class));
+                finish();
+            }*/
+
+        }
+    };
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        try {
+            if (handler != null) {
+                handler.removeMessages(0);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
+}

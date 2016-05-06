@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "D:\\Current Project\\Voxtab\\Project\\09042016\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\main.xml",
+        "source": "D:\\Current Project\\Voxtab\\Project\\09042016\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\bundles\\debug\\res\\layout\\main.xml"
+    },
+    {
+        "merged": "D:\\Current Project\\Voxtab\\Project\\09042016\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\adapter_autocomplete.xml",
+        "source": "D:\\Current Project\\Voxtab\\Project\\09042016\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\bundles\\debug\\res\\layout\\adapter_autocomplete.xml"
+    },
+    {
+        "merged": "D:\\Current Project\\Voxtab\\Project\\Code\\voxtab_8apr_1pm\\SVN New\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\adapter_autocomplete.xml",
+        "source": "D:\\Current Project\\Voxtab\\Project\\Code\\voxtab_8apr_1pm\\SVN New\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\bundles\\debug\\res\\layout\\adapter_autocomplete.xml"
+    },
+    {
+        "merged": "D:\\Current Project\\Voxtab\\Project\\09042016\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\cropimage.xml",
+        "source": "D:\\Current Project\\Voxtab\\Project\\09042016\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\bundles\\debug\\res\\layout\\cropimage.xml"
+    },
+    {
+        "merged": "D:\\Current Project\\Voxtab\\Project\\Code\\voxtab_8apr_1pm\\SVN New\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\cropimage.xml",
+        "source": "D:\\Current Project\\Voxtab\\Project\\Code\\voxtab_8apr_1pm\\SVN New\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\bundles\\debug\\res\\layout\\cropimage.xml"
+    },
+    {
+        "merged": "D:\\Current Project\\Voxtab\\Project\\Code\\voxtab_8apr_1pm\\SVN New\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\main.xml",
+        "source": "D:\\Current Project\\Voxtab\\Project\\Code\\voxtab_8apr_1pm\\SVN New\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\bundles\\debug\\res\\layout\\main.xml"
+    },
+    {
+        "merged": "D:\\Current Project\\Voxtab\\Project\\09042016\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\toast_custom_layout.xml",
+        "source": "D:\\Current Project\\Voxtab\\Project\\09042016\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\bundles\\debug\\res\\layout\\toast_custom_layout.xml"
+    },
+    {
+        "merged": "D:\\Current Project\\Voxtab\\Project\\Code\\voxtab_8apr_1pm\\SVN New\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\toast_custom_layout.xml",
+        "source": "D:\\Current Project\\Voxtab\\Project\\Code\\voxtab_8apr_1pm\\SVN New\\SVN New\\SVN New\\ariatech_lib\\build\\intermediates\\bundles\\debug\\res\\layout\\toast_custom_layout.xml"
+    }
+]

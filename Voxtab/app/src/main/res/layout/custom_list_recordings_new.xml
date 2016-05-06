@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:longClickable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/onclicklin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:longClickable="true"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/img_selection_icon"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_margin="2dp"
+                    android:longClickable="true"
+                    android:src="@drawable/unfilled"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/lin_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top|center"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center|left"
+                    android:longClickable="true"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/txt_filename"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="TThis is sound file nameThis is sound sound file name"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/btn_txt_size"
+                        android:maxLines="1"
+                        android:layout_weight="100"
+                        android:layout_marginRight="5dp" />
+
+
+                    <LinearLayout
+                        android:id="@+id/order_text"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:gravity="center|top"
+                        android:orientation="horizontal"
+                        android:layout_gravity="bottom">
+
+                        <ImageView
+                            android:id="@+id/img_status_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="@dimen/btn_padding"
+                            android:longClickable="true"
+                            android:visibility="gone"
+                            android:src="@drawable/upload_icon" />
+
+                        <TextView
+                            android:id="@+id/txt_file_status"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimary"
+                            android:padding="@dimen/btn_padding"
+                            android:maxLines="2"
+                            android:text="OOrder PlacedOrder PlacedOrder Placedrder Placed"
+                            android:textSize="13dp"
+                            android:gravity="center"
+                            android:singleLine="false"
+                            android:textColor="#FFFFFF" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+                    <!--   <ImageView
+                           android:id="@+id/img_play_icon"
+                           android:layout_width="48dp"
+
+                           android:layout_height="48dp"
+                           android:longClickable="true"
+                           android:src="@drawable/plat_btn" />-->
+
+
+                    <TextView
+                        android:id="@+id/txt_file_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="00:00:00" />
+
+                    <TextView
+                        android:id="@+id/txt_date_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:singleLine="true"
+                        android:text="12-09-2016  01:10am" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/lin_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewInit"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="00:00:00"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/progress_file"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:maxHeight="3dip"
+                android:minHeight="3dip"
+                android:progressDrawable="@drawable/progress_file"
+                android:thumb="@drawable/thumb"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00:00"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/img_play_record"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:src="@drawable/play_icon" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

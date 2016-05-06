@@ -1,0 +1,367 @@
+package com.voxtab.ariatech.voxtab;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.voxtab.ariatech.voxtab.bean.Company_info;
+import com.voxtab.ariatech.voxtab.bean.Company_location;
+import com.voxtab.ariatech.voxtab.bean.MyRecording;
+import com.voxtab.ariatech.voxtab.bean.Users;
+import com.voxtab.ariatech.voxtab.database.DatabaseHandler;
+import com.voxtab.ariatech.voxtab.database.DatabaseHandlerNew;
+import com.voxtab.ariatech.voxtab.globaldata.GlobalData;
+import com.voxtab.ariatech.voxtab.globaldata.WebServiceMySQl;
+import com.voxtab.ariatech.voxtab.globaldata.WebServiceResonse;
+
+import java.util.LinkedList;
+
+/**
+ * Created by Local User on 03-Feb-16.
+ */
+public class LoginActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Context context;
+    private Toolbar toolbar;
+    Button sign_in_button;
+    LinkedList<MyRecording> selectedFiles;
+
+
+    String email= "";
+    String password= "";
+
+    EditText editTextUserName;
+    EditText editTextPassword;
+
+
+    CheckBox checkBoxRememberMe;
+    TextView textViewForgotPassword;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        GlobalData.activities.add(LoginActivity.this);
+        context = LoginActivity.this;
+        toolbar = GlobalData.initToolBarMenu(this, true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        init();
+
+    }
+
+
+
+    public void init() {
+
+/*
+        ArrayList<MyRecording> items = (ArrayList<MyRecording>)
+                getIntent().getSerializableExtra("selected_files");
+
+        selectedFiles = new LinkedList<MyRecording>();
+        selectedFiles.addAll(items);
+        System.out.println(" List Size " + items.size());
+       */
+          editTextUserName=(EditText)findViewById(R.id.mobile);
+          editTextPassword=(EditText)findViewById(R.id.password);
+
+
+     checkBoxRememberMe=(CheckBox)findViewById(R.id.checkboxRemeberMe);
+     textViewForgotPassword=(TextView)findViewById(R.id.txt_forgot_password);
+
+
+        editTextUserName.setText("rahulkurkute@gmial.com");
+        editTextPassword.setText("sagar123");
+
+        sign_in_button = (Button) findViewById(R.id.sign_in_button);
+        sign_in_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                try {
+
+
+//                    login();
+                    email = editTextUserName.getText().toString();
+                    password = editTextPassword.getText().toString();
+
+                    
+                    if(!GlobalData.isNetworkAvailable(context)){
+                        GlobalData.showSnackBar(sign_in_button,getString(R.string.no_connection),true);
+
+                        return;
+                    }
+
+                    if(email.length()>0 && password.length()>0){
+
+                      new LoginCall().execute("");
+                    }else{
+
+                        GlobalData.showSnackBar(sign_in_button,getString(R.string.validation_login),true);
+                    }
+
+
+
+
+                }catch (Exception e){
+                    GlobalData.printError(e);
+                }
+
+            }
+        });
+
+
+        clearData();
+
+    }
+
+    public void clearData(){
+        editTextUserName.setText("");
+        editTextPassword.setText("");
+
+    }
+
+    public void login() {
+
+        Intent intent = new Intent(LoginActivity.this, OrderActivity.class);
+//        intent.putExtra("selected_files", selectedFiles);
+        startActivity(intent);
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_notifications) {
+        } else if (id == R.id.nav_notifications) {
+
+        } else if (id == R.id.nav_recordings) {
+            Intent intent = new Intent(LoginActivity.this, MyRecordingsActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_order_history) {
+
+            Intent intent = new Intent(LoginActivity.this, OrderHistoryActivity.class);
+            startActivity(intent);
+
+
+        } else if (id == R.id.nav_settings) {
+
+        } else if (id == R.id.nav_home) {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_help) {
+
+
+        } else if (id == R.id.nav_confidentiality) {
+
+        } else if (id == R.id.nav_terms_condition) {
+
+        } else if (id == R.id.nav_about_us) {
+
+        } /*else if (id == R.id.nav_logout) {
+
+        }*/ else if (id == R.id.nav_feedback) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+            Intent in = new Intent(LoginActivity.this,
+                    HomeActivity.class);
+            in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(in);
+            finish();
+        }
+
+    }
+
+
+
+    // Login Call
+
+    class LoginCall extends AsyncTask<String,WebServiceResonse,WebServiceResonse>{
+
+        WebServiceResonse resonse =new WebServiceResonse();
+        WebServiceMySQl webServiceMySQl=new WebServiceMySQl(context);
+
+
+        @Override
+        protected WebServiceResonse doInBackground(String... params) {
+
+
+            try {
+
+                resonse = webServiceMySQl.Login(email,password);
+
+
+            }catch (Exception e){
+                GlobalData.printError(e);
+            }
+
+
+
+            return resonse;
+        }
+
+        @Override
+        protected void onPostExecute(WebServiceResonse resonse) {
+            super.onPostExecute(resonse);
+
+            try {
+
+                if(resonse.getStatus() == 200){
+
+                    // Parse And Save Data
+
+
+                    // Parse Data
+                    // User  company Info  companyLocation
+
+                    Users users=new Users();
+
+                    int userId=0;
+                    String membership_id ="";
+                    try {
+                        userId=Integer.parseInt(resonse.getJsonObject().getString("user_id"));
+                        membership_id=resonse.getJsonObject().getString("membership_id");
+                    }catch (Exception e){
+                        GlobalData.printError(e);
+                    }
+
+                    users.setUser_id(userId);
+                    users.setMembership_id(membership_id);
+
+
+                    // add Company Info
+                    Company_info company_info=new Company_info();
+                    Company_location loc=new Company_location();
+                    try {
+
+                        company_info.parseJSON(resonse.getJsonObject().getJSONArray("company_info").getJSONObject(0));
+
+
+                    }catch (Exception e){
+                        GlobalData.printError(e);
+                    }
+                    try {
+
+                        loc.parseJSON(resonse.getJsonObject().getJSONArray("company_location").getJSONObject(0));
+
+
+                    }catch (Exception e){
+                        GlobalData.printError(e);
+                    }
+
+
+                    if (userId>0){
+
+                        DatabaseHandlerNew db=new DatabaseHandlerNew(context);
+                        try {
+                            db.open();
+
+                            // Delete Data
+                            db.deleteUsers();
+                            db.deleteCompany_info();
+                            db.deleteCompany_location();
+
+                            db.addUsers(users);
+
+                            db.addCompany_info(company_info);
+                            db.addCompany_location(loc);
+
+
+                            GlobalData.setUserData(context);
+
+                            login();
+
+
+                        }catch (Exception e){
+                            GlobalData.printError(e);
+                        }finally {
+                            db.close();
+                        }
+
+
+
+
+                    }
+
+
+
+
+                }else {
+
+                    if(resonse.getMessage().length()>0){
+
+                        GlobalData.showSnackBar(sign_in_button,resonse.getMessage(),true);
+                    }
+                }
+
+
+
+
+            }catch (Exception e){
+                GlobalData.printError(e);
+            }
+
+        }
+    }
+
+
+
+}

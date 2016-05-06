@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.voxtab.ariatech.voxtab">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MICROPHONE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <permission android:name="com.voxtab.ariatech.voxtab.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.voxtab.ariatech.voxtab.permission.C2D_MESSAGE" />
+
+
+
+    <application
+        android:name=".RecorderApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateHidden"></activity>
+
+        <activity
+            android:name=".RecordingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorPortrait"></activity>
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="sensorPortrait"></activity>
+        <activity
+            android:name=".MyRecordingsActivity"
+            android:screenOrientation="sensorPortrait"></activity>
+
+
+        <activity
+            android:name=".OrderActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateHidden"></activity>
+
+        <activity
+            android:name=".ThankYouActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+        <activity
+            android:name=".ReviewOrderActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateHidden">
+
+
+        </activity>
+        <activity
+            android:name=".OrderHistoryActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+
+        <activity android:name=".RevisedOrderActivity"></activity>
+        <activity android:name=".OrderDetailsActivity"></activity>
+
+
+        <service
+            android:name="com.voxtab.ariatech.voxtab.fileuploading.NLService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

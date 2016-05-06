@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/top_padding"
+    android:weightSum="1">
+
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:scrollbarThumbVertical="@android:color/transparent">
+
+        <RelativeLayout
+            android:id="@+id/lin_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="178dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:drawableBottom="@drawable/header_underline"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/memory_settings"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/txt_heading_size" />
+
+            <LinearLayout
+                android:id="@+id/lin_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/btn_padding"
+                android:orientation="vertical"
+                android:padding="@dimen/btn_padding"
+                android:visibility="visible">
+
+
+                <LinearLayout
+                    android:id="@+id/lin_contents"
+                    android:layout_width="338dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/btn_padding"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/btn_padding"
+                    android:paddingLeft="@dimen/btn_padding"
+                    android:paddingRight="@dimen/btn_padding"
+                    android:paddingTop="@dimen/btn_padding"
+                    android:visibility="visible">
+
+                    <RadioGroup
+                        android:id="@+id/rg_memory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="34dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/btn_padding"
+                            android:background="@drawable/edt_bg"
+                            android:gravity="center">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="@string/save_phone"
+                                android:padding="8dp"
+                                android:textSize="@dimen/txtminsize" />
+
+                            <RadioButton
+                                android:id="@+id/rb_phone"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                android:background="@drawable/notification_selector"
+                                android:button="@null"
+                                android:checked="true"
+                                android:padding="@dimen/btn_padding" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="34dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/btn_padding"
+                            android:background="@drawable/edt_bg"
+                            android:gravity="center">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="@string/save_ext"
+                                android:padding="8dp"
+                                android:textSize="@dimen/txtminsize" />
+
+                            <RadioButton
+                                android:id="@+id/rb_ext"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                android:background="@drawable/notification_selector"
+                                android:button="@null"
+                                android:padding="@dimen/btn_padding" />
+
+
+                        </RelativeLayout>
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:id="@+id/lin_btns"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/activity_horizontal_margin">
+
+                        <Button
+                            android:id="@+id/btn_back"
+                            android:layout_width="100dp"
+                            android:layout_height="38dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/button_selector_start"
+                            android:gravity="center"
+                            android:text="@string/back"
+                            android:textAllCaps="false"
+                            android:textColor="@drawable/text_selector_start"
+                            android:textSize="@dimen/txtid_size" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+</LinearLayout>

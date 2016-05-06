@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/grp_menus"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_notifications"
+            android:checkable="true"
+            android:icon="@drawable/notifications_icon"
+            android:title="@string/notifications" />
+
+        <item
+            android:id="@+id/nav_recordings"
+            android:checkable="true"
+            android:icon="@drawable/my_recordings_icon"
+            android:title="@string/myrecordings" />
+
+        <item
+            android:id="@+id/nav_order_history"
+            android:checkable="true"
+            android:icon="@drawable/my_orderhistory_icon"
+            android:title="@string/myorderhistory" />
+        <item
+            android:id="@+id/nav_settings"
+            android:checkable="true"
+            android:icon="@drawable/settings_icon"
+            android:title="@string/settings" />
+
+        <item
+            android:id="@+id/nav_home"
+            android:checkable="true"
+            android:icon="@drawable/home_icon"
+            android:title="@string/home" />
+
+        <item
+            android:id="@+id/nav_help"
+            android:checkable="true"
+            android:icon="@drawable/help_icon"
+            android:title="@string/help" />
+
+        <item
+            android:id="@+id/nav_confidentiality"
+            android:checkable="true"
+            android:icon="@drawable/confidentiality_icon"
+            android:title="@string/confidentiality" />
+
+        <item
+            android:id="@+id/nav_terms_condition"
+            android:checkable="true"
+            android:icon="@drawable/terms_icon"
+            android:title="@string/terms_conditions" />
+
+        <item
+            android:id="@+id/nav_about_us"
+            android:checkable="true"
+            android:icon="@drawable/aboutus_icon"
+            android:title="@string/aboutus" />
+
+
+      <!--  <item
+            android:id="@+id/nav_logout"
+            android:checkable="true"
+            android:icon="@drawable/logout_icon"
+            android:title="@string/logout" />-->
+
+        <item
+            android:id="@+id/nav_feedback"
+            android:checkable="true"
+            android:icon="@drawable/feedback_icon"
+            android:title="@string/feedback" />
+
+
+    </group>
+
+</menu>
+

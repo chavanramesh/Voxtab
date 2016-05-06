@@ -1,0 +1,223 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Voxtab</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="progress_notification">Voxtab Mobile Recording..</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="action_settings">設定</string>
+    <string name="membership_id">メンバーシップID</string>
+    <string name="no_connection">Your internet connection is not active, Please try again</string>
+    <string name="validation_login">Please enter valid credentials</string>
+    <string name="validation_password">Entered password is wrong</string>
+
+
+    <!--Navigation Menus-->
+    <string name="notifications">お知らせ</string>
+    <string name="myrecordings">録音ファイル</string>
+    <string name="myorderhistory">ご注文履歴</string>
+    <string name="settings">設定</string>
+    <string name="home">ホーム</string>
+    <string name="help">ヘルプ</string>
+    <string name="confidentiality">機密保持について</string>
+    <string name="terms_conditions">規約について</string>
+    <string name="aboutus">ボックスタブについて</string>
+    <string name="send_to">Share Transcription</string>
+
+
+    <string name="logout">ログアウト</string>
+    <string name="feedback">フィードバック</string>
+    <string name="app_close_msg">Do you wish to close this app ?</string>
+
+    <!--Start_screen-->
+    <string name="start_recording">録音開始</string>
+    <string name="upload_audio">Upload audio</string>
+    <string name="add_audio">ファイルを追加</string>
+    <string name="free_memory_msg1">You can record approx.</string>
+    <string name="free_memory_msg2">with your available phone memory.</string>
+    <string name="revschedule">Reviced Delivery Schedule</string>
+
+    <string name="file_record_msg">Let me record my entire file.</string>
+    <string name="file_save_msg">Let me save the file</string>
+
+    <!--Recording_screen-->
+    <string name="recording_time">Recording time</string>
+    <string name="time_format">00:00:00</string>
+
+    <!--My Recordings-->
+    <string name="btn_proceed_order">ご注文へ</string>
+    <string name="select_file">Please Select File</string>
+    <string name="single_file">Please select a single file</string>
+    <string name="no_recordings_msg">You don\'t have any recordings</string>
+    <string name="file_size">Selected file size is zero</string>
+    <string name="download_file">Downloading file. Please wait...</string>
+    <!--Login -->
+    <string name="login_to_proceed">ログインはこちらから</string>
+    <string name="login_msg">Get your audio transcribed by native English speakers who are experts in your subject </string>
+    <string name="username">Username</string>
+    <string name="password">パスワード</string>
+    <string name="forgot_password">パスワードをお忘れの場合</string>
+    <string name="remember_me">パスワードを保存する</string>
+    <string name="login_alert">Please Login first</string>
+
+    <string name="order_comp">Your order has been completed</string>
+    <!--Order-->
+    <string name="total_duration">合計時間</string>
+    <string name="duration">Duration</string>
+
+    <string name="total_fee">合計金額</string>
+    <string name="delivery_date_time">Del. Time &amp; Date</string>
+    <string name="change">Change</string>
+    <string name="select_service_details">お選びいただいたサービスの詳細</string>
+    <string name="free_services">無料サービス</string>
+    <string name="subject_of_file">Subject of the file</string>
+    <string name="instructions_for_order">Instructions for Order</string>
+    <string name="selected_files">ファイルを選ぶ</string>
+    <string name="cancel">キャンセル</string>
+    <string name="order">ご依頼</string>
+    <string name="turn_wifi_on">Wifiをオンにする</string>
+    <string name="continue_btn">そのまま続ける</string>
+    <string name="wifi_msg">インターネットをWiFiに切り替えますか？
+</string>
+
+    <string name="ask_before"> Wi-Fi or Network Connection ? </string>
+    <string name="review_order">ご依頼の詳細</string>
+    <string name="review_hint">上記の納品日時は、お客様のご依頼ファイルが届いた日から計算しています</string>
+    <string name="complete_order">依頼を完了する</string>
+    <string name="edit">編集</string>
+    <string name="details">詳細</string>
+    <string name="review_msg">お客様のご依頼の詳細は下記になります</string>
+    <string name="thank_you">ありがとうございます！</string>
+    <string name="thank_note">Your Order with \n Assignment Number ASS_NO  \n is now confirmed !</string>
+    <string name="go_order_history">ご注文履歴はこちらをクリックして下さい</string>
+    <string name="cancel_alert">Do you want to cancel this order ?</string>
+    <string name="edit_alert">Do you want to edit this order ?</string>
+    <string name="revised_delivery_schedule">変更後の納品日時</string>
+    <string name="assignment_no">アサイメント番号</string>
+    <string name="confirm">確定</string>
+    <string name="order_details">Order Details</string>
+    <string name="back">戻る</string>
+    <string name="conf">Conform</string>
+    <string name="view_order_details"><u>View Order Details</u></string>
+    <string name="order_history">Order History</string>
+    <string name="download_transcription"><u>Download Transcription</u></string>
+    <string name="file_details">File Details</string>
+    <string name="services_type">Services Type</string>
+    <string name="delivery_option">納品速度</string>
+    <string name="value_addded_services">有料サービス</string>
+    <string name="time_stamps">タイムスタンプ</string>
+
+    //alert msg
+    <string name="delete_alert_msg">Do you want to delete this file ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="enter_filename_msg">Enter file name</string>
+    <string name="descr_hint">Enter recording description here..</string>
+    <string name="discard">削除</string>
+    <string name="ok">Ok</string>
+    <string name="recording">Recording_</string>
+    <string name="stop_alert_msg">Do you want to stop recording ?</string>
+
+
+    <!--File info-->
+    <string name="file_name">ファイル名</string>
+    <string name="file_descr">File Descripton</string>
+    <string name="date_time">納品日時</string>
+    <string name="status">現在の状況</string>
+
+
+    <string name="button_start_record">Start</string>
+    <string name="button_pause_record">Pause</string>
+    <string name="button_play_record">再生</string>
+    <string name="error_audio_recorder">Audio recorder error: %1$s</string>
+    <string name="audio_db_title_format"><xliff:g id="format">yyyy-MM-dd HH:mm:ss</xliff:g></string>
+    <string name="audio_db_artist_name">Your recordings</string>
+    <string name="audio_db_album_name">Audio recordings</string>
+    <string name="error_no_permissions">The recorder requires `RECORD_AUDIO` and `WRITE_EXTERNAL_STORAGE` permissions.</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+
+    <!--file upload msgs-->
+    <string name="Upload_complete"> Upload complete</string>
+    <string name="Uploaded">Uploaded</string>
+    <string name="uploading_files">Uploading Audio</string>
+    <string name="uploading_in_progress">Uploding in progress</string>
+    <string name="uploading_Failed"> Audio Upload Failed</string>
+
+
+    <!--Settings-->
+    <string name="account_settings">アカウントの設定</string>
+    <string name="notification_settings">お知らせの設定</string>
+    <string name="memory_settings">料金の設定</string>
+    <string name="data_usage_settings">データ使用量＆アップロード</string>
+
+    <!--account settings-->
+    <string name="old_pass">以前のパスワードを入力</string>
+    <string name="new_pass">新しいパスワードを入力</string>
+    <string name="re_pass">新しいパスワードを再入力</string>
+    <string name="change_pass">パスワードを変更する</string>
+    <string name="profile">プロフィール</string>
+    <string name="name">名前</string>
+    <string name="organization">組織</string>
+    <string name="email">Eメール</string>
+    <string name="contact">連絡先</string>
+    <string name="profile_img">プロフィール写真</string>
+    <string name="browse">ブラウザ</string>
+    <string name="send_all_noti">全てのお知らせを受け取る</string>
+    <string name="mute_all_noti">お知らせを消音にする</string>
+    <string name="notify_deli">納品時のみお知らせを受け取る</string>
+    <string name="save_phone">電話番号を保存</string>
+    <string name="save_ext">内線を保存</string>
+    <string name="record_review_upload">録音・確認・アップロード</string>
+    <string name="upload_wifi">WiFiの時のみアップロード</string>
+    <string name="upload_network">モバイルネットワークの時のみアップロード</string>
+    <string name="upload_anytime">いつでもアップロード</string>
+    <string name="ask_upload">アップロードの前に選択</string>
+    <string name="upload_while_record">録音しながらアップロード</string>
+    <string name="login_feature">この機能を利用するにはログインが必要です</string>
+    <string name="order_placed">ご注文済み</string>
+    <string name="audio_uploaded">Audio Uploaded</string>
+    <string name="delivered">Delivered</string>
+    <string name="share">シェア</string>
+    <string name="order_complete_msg">お客様のご依頼は完了しました。</string>
+    <string name="progress_note">Your batchwise delivery is in progress. \n You have received count files \n Final Delivery date is </string>
+
+
+
+    <!-- GCM Message -->
+    <string name="error_config">Please set the %1$s constant and recompile the app.</string>
+    <string name="already_registered">Device is already registered on server.</string>
+    <string name="gcm_registered">From GCM: device successfully registered!</string>
+    <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
+    <string name="gcm_message">From GCM: you got message!</string>
+    <string name="gcm_error">From GCM: error (%1$s).</string>
+    <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
+    <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
+    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
+    <string name="server_registered">From Demo Server: successfully added device!</string>
+    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
+    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
+    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
+    <string name="options_register">Register</string>
+    <string name="options_unregister">Unregister</string>
+    <string name="options_clear">Clear</string>
+    <string name="options_exit">Exit</string>
+
+
+
+
+    <string name="feedback_form">フィードバックの入力フォーム</string>
+    <string name="feedback_note">Please select order or assignment number</string>
+    <string name="feed_note">下記にフィードバックをご入力ください</string>
+    <string name="feed_hint">メッセージをご入力ください</string>
+    <string name="send">送信する</string>
+    <string name="order_feedback">ご依頼に関するフィードバック</string>
+    <string name="app_feedback">フィードバックを追加する　</string>
+    <string name="click_here">Click here to view</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="network_connection">Network Connection</string>
+    <string name="data_error">Data not available on server</string>
+    <string name="ext_storage">extstorage</string>
+</resources>

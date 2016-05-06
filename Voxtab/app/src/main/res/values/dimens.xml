@@ -1,0 +1,38 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_text_margin">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="primary_text_size">16sp</dimen>
+    <dimen name="secondary_text_size">14sp</dimen>
+    <dimen name="tertiary_text_size">12sp</dimen>
+
+    <dimen name="txtmemid_size">10sp</dimen>
+    <dimen name="txtminsize">12sp</dimen>
+    <dimen name="txtid_topmargin">10dp</dimen>
+    <dimen name="lbl_id_topmargin">14dp</dimen>
+    <dimen name="txtid_size">14sp</dimen>
+    <dimen name="btn_txt_size">16sp</dimen>
+    <dimen name="timer_font_size">30dp</dimen>
+
+    <!--My Recording-->
+    <dimen name="btn_padding">4dp</dimen>
+    <dimen name="lin_padding">8dp</dimen>
+    <dimen name="linear_padding">24dp</dimen>
+    <dimen name="font_size_medium">16sp</dimen>
+    <dimen name="top_padding">64dp</dimen>
+
+
+    <dimen name="list_padding">0dp</dimen>
+    <dimen name="list_item_padding">16dp</dimen>
+    <dimen name="text_padding">8dp</dimen>
+    <dimen name="txt_heading_size">18sp</dimen>
+
+    <dimen name="head_font_size">20dp</dimen>
+</resources>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <ExpandableListView
+        android:id="@+id/lst_orders"
+        android:layout_width="320dp"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/btn_padding"
+        android:layout_marginLeft="@dimen/btn_padding"
+        android:layout_marginRight="@dimen/btn_padding"
+        android:childDivider="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:groupIndicator="@null"
+        android:listSelector="@android:color/transparent"
+        android:scrollbarThumbVertical="@android:color/transparent"
+        android:visibility="visible"></ExpandableListView>
+
+</RelativeLayout>

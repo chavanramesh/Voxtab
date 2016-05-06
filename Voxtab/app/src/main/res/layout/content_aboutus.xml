@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/top_padding"
+    android:weightSum="1">
+
+
+    <RelativeLayout
+        android:id="@+id/lin_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+       <!-- <TextView
+            android:id="@+id/title"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:drawableBottom="@drawable/header_underline"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/aboutus"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/txt_heading_size" />
+-->
+
+        <LinearLayout
+            android:id="@+id/lin_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/btn_padding">
+
+
+          <!--  <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/btn_padding"
+                android:background="@drawable/add_btn_bg"
+                android:orientation="vertical"
+                android:padding="@dimen/btn_padding">
+
+                <LinearLayout
+                    android:id="@+id/lin_memory"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_margin="@dimen/btn_padding"
+                    android:background="@drawable/setttings_bg"
+                    android:orientation="vertical"
+                    android:padding="@dimen/btn_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/btn_padding"
+                        android:paddingLeft="8dp"
+                        android:textStyle="bold"
+                        android:paddingRight="@dimen/btn_padding"
+                        android:paddingTop="@dimen/btn_padding"
+                        android:text="@string/aboutus"
+                        android:textColor="@color/colorPrimary"></TextView>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/txt_abt_us"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:paddingBottom="@dimen/btn_padding"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="@dimen/btn_padding"
+                    android:paddingTop="@dimen/btn_padding"
+                    android:text="ejefpipiwejfhwrwdsfnasddddddddddsdfffffffffagrehtrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" />
+
+
+                <TextView
+                    android:id="@+id/txt_read_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/btn_padding"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="@dimen/btn_padding"
+                    android:paddingTop="@dimen/btn_padding"
+                    android:text="@string/read_more"
+                    android:textStyle="italic|bold"
+                    android:textSize="@dimen/primary_text_size"/>
+
+            </LinearLayout>
+-->
+
+
+
+            <LinearLayout
+                android:id="@+id/lin_abt"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_margin="@dimen/btn_padding"
+                android:background="@drawable/setttings_bg"
+                android:orientation="vertical"
+                android:padding="@dimen/btn_padding">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/btn_padding"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="@dimen/btn_padding"
+                    android:paddingTop="@dimen/btn_padding"
+                    android:text="@string/aboutus"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_terms"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_margin="@dimen/btn_padding"
+                android:background="@drawable/setttings_bg"
+                android:orientation="vertical"
+                android:padding="@dimen/btn_padding">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/btn_padding"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="@dimen/btn_padding"
+                    android:paddingTop="@dimen/btn_padding"
+                    android:text="@string/terms_conditions" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_con"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_margin="@dimen/btn_padding"
+                android:background="@drawable/setttings_bg"
+                android:orientation="vertical"
+                android:padding="@dimen/btn_padding">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/btn_padding"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="@dimen/btn_padding"
+                    android:paddingTop="@dimen/btn_padding"
+                    android:text="@string/confidentiality" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!--  <ProgressBar
+              android:id="@+id/progress_bar_new"
+              style="?android:attr/progressBarStyle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerHorizontal="true"
+              android:layout_centerVertical="true"
+              android:layout_gravity="center_vertical|center_horizontal"
+              android:indeterminate="false" />-->
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="54dp">
+
+
+    <TextView
+        android:id="@+id/title_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:singleLine="true"
+        android:text="@string/notifications"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/txt_heading_size"
+        android:visibility="visible" />
+
+
+    <ListView
+        android:id="@+id/lst_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_notifications"
+        android:layout_marginBottom="4dp"
+        android:divider="@android:color/transparent"
+        android:longClickable="true"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:scrollbarThumbVertical="@android:color/transparent"
+        android:scrollbars="vertical"
+        android:visibility="visible">
+
+    </ListView>
+
+
+    <TextView
+        android:id="@+id/txt_no_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="@string/no_notifications_msg"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/btn_txt_size"
+        android:visibility="visible" />
+
+
+</RelativeLayout>

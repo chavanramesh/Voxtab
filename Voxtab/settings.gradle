@@ -1,0 +1,2 @@
+include ':app', ':ariatech_lib', ':recorder'
+include ':dropboxChooserSDK'

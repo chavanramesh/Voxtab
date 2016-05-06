@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/btn_padding">
+
+    <LinearLayout
+        android:id="@+id/lin_plan"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:paddingLeft="@dimen/btn_padding"
+        android:layout_gravity="center"
+        android:background="@drawable/box"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="100">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/btn_padding"
+                android:weightSum="1">
+
+
+                <TextView
+                    android:id="@+id/scheme_duration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".70"
+                    android:singleLine="true"
+                    android:text="@string/date_time_new"
+                    android:textColor="@color/blackBackground"
+                    android:textSize="@dimen/tertiary_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/scheme_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".30"
+                    android:singleLine="true"
+                    android:text="@string/total_fee"
+                    android:textColor="@color/blackBackground"
+                    android:textSize="@dimen/tertiary_text_size"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/btn_padding"
+                android:weightSum="1">
+
+
+
+
+                <TextView
+                    android:id="@+id/date_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".70"
+                    android:singleLine="true"
+                    android:text="dsjhnvnvisjdfvl"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/tertiary_text_size" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".30"
+                    android:singleLine="true"
+                    android:text="dsjhnvnvisjdfvl"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/tertiary_text_size" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/imageviewRadio"
+                android:background="@drawable/unselected_option_box" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

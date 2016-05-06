@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+
+    <color name="colorPrimaryDark">#A6CE39</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#A6CE39</color>
+    <color name="color_upload_bg">#EEEEEE</color>
+    <color name="color_recording_bg">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="color_upload_audio">#0073B2</color>
+    <color name="color_unread">#F3F8E4</color>
+    <color name="color_read">#FAFAFA</color>
+
+    <color name="color_not_txt">#C3AFA0</color>
+</resources>

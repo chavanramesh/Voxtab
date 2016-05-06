@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="298dp"
+        android:layout_height="280dp"
+        android:layout_alignParentEnd="true"
+        android:gravity="top|center|right"
+        android:background="@drawable/pop_bg"
+        android:paddingTop="15dp"
+        android:paddingBottom="3dp">
+
+        <ListView
+            android:id="@+id/lst_change"
+            android:layout_width="288dp"
+            android:layout_height="210dp"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center|right"
+            android:paddingLeft="@dimen/btn_padding"
+            android:paddingRight="@dimen/btn_padding"
+            android:scrollbarSize="2dp"
+            android:scrollbarThumbVertical="@color/green"
+            android:scrollbars="none"
+            android:background="#FFFFFF"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/view_all"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/txtminsize"
+            android:layout_below="@+id/lst_change"
+            android:text="@string/view_all"
+            android:textColor="#800000"
+            android:paddingRight="20dp"
+            android:gravity="top|bottom|right"
+            android:background="#FFFFFF"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="2dp"></TextView>
+    </LinearLayout>
+
+</RelativeLayout>

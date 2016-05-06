@@ -1,0 +1,140 @@
+
+
+
+package com.voxtab.ariatech.voxtab.bean;
+
+
+import com.voxtab.ariatech.voxtab.globaldata.GlobalData;
+
+import org.json.JSONObject;
+
+public class Delivery_slot {
+
+
+    String deliveryslot_id = "";
+    String slot_from = "";
+    String slot_to = "";
+    String modified_date = "";
+    String created_date = "";
+    String soft_del = "";
+    String sat_flag ="";
+
+    public void setDeliveryslot_id(String deliveryslot_id) {
+        this.deliveryslot_id = deliveryslot_id;
+    }
+
+    public String getDeliveryslot_id() {
+        return deliveryslot_id;
+    }
+
+    public void setSlot_from(String slot_from) {
+        this.slot_from = slot_from;
+    }
+
+    public String getSlot_from() {
+        return slot_from;
+    }
+
+    public void setSlot_to(String slot_to) {
+        this.slot_to = slot_to;
+    }
+
+    public String getSlot_to() {
+        return slot_to;
+    }
+
+    public void setModified_date(String modified_date) {
+        this.modified_date = modified_date;
+    }
+
+    public String getModified_date() {
+        return modified_date;
+    }
+
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
+    }
+
+    public String getCreated_date() {
+        return created_date;
+    }
+
+    public void setSoft_del(String soft_del) {
+        this.soft_del = soft_del;
+    }
+
+    public String getSoft_del() {
+        return soft_del;
+    }
+
+    public String getSat_flag() {
+        return sat_flag;
+    }
+
+    public void setSat_flag(String sat_flag) {
+        this.sat_flag = sat_flag;
+    }
+
+    public void parseJSON(JSONObject jsonObject) {
+        try {
+            if (jsonObject.has("deliveryslot_id")) {
+                try {
+                    deliveryslot_id = jsonObject.getString("deliveryslot_id");
+                } catch (Exception e) {
+                }
+            }
+
+
+
+            if (jsonObject.has("sat_flag")) {
+                try {
+                    sat_flag = jsonObject.getString("sat_flag");
+                } catch (Exception e) {
+                }
+            }
+
+
+
+            if (jsonObject.has("slot_from")) {
+                try {
+                    slot_from = jsonObject.getString("slot_from");
+                } catch (Exception e) {
+                }
+            }
+
+            if (jsonObject.has("slot_to")) {
+                try {
+                    slot_to = jsonObject.getString("slot_to");
+                } catch (Exception e) {
+                }
+            }
+
+            if (jsonObject.has("modified_date")) {
+                try {
+                    modified_date = jsonObject.getString("modified_date");
+                } catch (Exception e) {
+                }
+            }
+
+            if (jsonObject.has("created_date")) {
+                try {
+                    created_date = jsonObject.getString("created_date");
+                } catch (Exception e) {
+                }
+            }
+
+            if (jsonObject.has("soft_del")) {
+                try {
+                    soft_del = jsonObject.getString("soft_del");
+                } catch (Exception e) {
+                }
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            GlobalData.printError(e);
+        }
+
+    }
+
+
+}//END

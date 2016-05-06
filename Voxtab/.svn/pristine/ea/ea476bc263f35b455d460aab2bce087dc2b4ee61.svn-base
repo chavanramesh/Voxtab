@@ -1,0 +1,89 @@
+package com.voxtab.ariatech.voxtab.bean;
+
+/**
+ * Created by MAC 2 on 4/4/2016.
+ */
+public class Users_JSON {
+
+    String membership_id = "CAPGEJ";
+    String location_id = "22";
+    String email = "rahul.kurkute@gmail.com";
+    String last_name = "kurkute";
+    String first_name = "Rahul";
+    String imei = "2123213213";
+    String device_type = "Android";
+    String device_name = "Nexus 5x ";
+    String device_os = "Kitkat 4.4";
+
+    public String getMembership_id() {
+        return membership_id;
+    }
+
+    public void setMembership_id(String membership_id) {
+        this.membership_id = membership_id;
+    }
+
+    public String getLocation_id() {
+        return location_id;
+    }
+
+    public void setLocation_id(String location_id) {
+        this.location_id = location_id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
+    }
+
+    public String getDevice_type() {
+        return device_type;
+    }
+
+    public void setDevice_type(String device_type) {
+        this.device_type = device_type;
+    }
+
+    public String getDevice_name() {
+        return device_name;
+    }
+
+    public void setDevice_name(String device_name) {
+        this.device_name = device_name;
+    }
+
+    public String getDevice_os() {
+        return device_os;
+    }
+
+    public void setDevice_os(String device_os) {
+        this.device_os = device_os;
+    }
+}

@@ -1,0 +1,14 @@
+
+** noti_setting_type
+1 Send all Notification  SAN
+2 Mute all Notifications MAN
+3 Notifiy only Delivries NOD
+
+** upload_setting_type
+1 Upload Using Wifi only     U-WIFI-O
+2 Upload Using Network only  U-NET-O
+3 Upload Anytime             U-ANY-T
+4 Ask before Uploading       A-BEF-U
+
+
+

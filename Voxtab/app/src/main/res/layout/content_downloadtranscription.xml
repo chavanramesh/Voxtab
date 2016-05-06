@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="54dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/txt_assignment_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/btn_padding"
+            android:padding="@dimen/btn_padding"
+            android:text="@string/assignment_no"
+            android:textSize="17dp"
+            android:visibility="visible"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textViewAssNo"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lst_files"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/lin_bottom"
+        android:layout_below="@+id/txt_assignment_num"
+        android:longClickable="true"
+        android:scrollbarThumbVertical="@android:color/transparent"
+        android:visibility="visible"
+        android:layout_weight="100">
+
+    </ListView>
+
+
+    <ImageView
+        android:id="@+id/img_thanku"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+
+        android:visibility="visible"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@drawable/thank_icon"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/txt_progress_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/progress_note"
+        android:textSize="@dimen/txtminsize"
+        android:visibility="visible"
+        android:layout_centerVertical="true" />
+
+
+    <TextView
+        android:id="@+id/txt_no_records"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="@string/no_recordings_msg"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/btn_txt_size"
+        android:visibility="gone" />
+
+
+    <LinearLayout
+        android:id="@+id/lin_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/lin_padding"
+        android:visibility="visible"
+       >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:layout_weight=".50"
+                android:background="@drawable/add_btn_bg"
+                android:padding="@dimen/btn_padding"
+                android:text="@string/back"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50">
+
+            <Button
+                android:id="@+id/btn_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:layout_weight=".50"
+                android:background="@drawable/add_btn_bg"
+                android:padding="@dimen/btn_padding"
+                android:text="@string/feedback"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

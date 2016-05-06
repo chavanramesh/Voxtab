@@ -1,0 +1,108 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!-- global dimension which are for all activities -->
+    <dimen name="activity_left_margin">16dp</dimen>
+    <dimen name="activity_right_margin">16dp</dimen>
+    <dimen name="activity_top_margin">16dp</dimen>
+    <dimen name="primary_text_size">16sp</dimen>
+    <dimen name="secondary_text_size">14sp</dimen>
+    <dimen name="tertiary_text_size">12sp</dimen>
+    <dimen name="btn_top_margin">16dp</dimen>
+    <dimen name="floating_add_btn_width">56dp</dimen>
+    <dimen name="floating_add_btn_height">56dp</dimen>
+    <dimen name="icon_width">24dp</dimen>
+    <dimen name="icon_height">24dp</dimen>
+
+    <dimen name="circle_icon_width">40dp</dimen>
+    <dimen name="circle_icon_height">40dp</dimen>
+
+    <dimen name="more_width">24dp</dimen>
+    <dimen name="more_height">24dp</dimen>
+
+    <dimen name="kyc_icon_width">40dp</dimen>
+    <dimen name="kyc_icon_height">40dp</dimen>
+
+
+    <dimen name="activity_layout_bottom_margin">16dp</dimen>
+
+
+    <!-- Add_Update_Delete Screen -->
+    <dimen name="form_layout_height">56dp</dimen>
+
+    <!-- Action Bar related dimensions -->
+    <dimen name="titlebar_padding_left">10.67dp</dimen>
+    <dimen name="titlebar_padding_top">16dp</dimen>
+    <dimen name="titlebar_padding_right">10.67dp</dimen>
+    <dimen name="titlebar_padding_bottom">0dp</dimen>
+    <dimen name="titlebar_height">37.33dp</dimen>
+    <dimen name="icon_width_for_back_button">24dp</dimen>
+    <dimen name="icon_height_for_back_button">24dp</dimen>
+    <dimen name="icon_width_for_add_button">24dp</dimen>
+    <dimen name="icon_height_for_add_button">24dp</dimen>
+    <dimen name="titlebar_text_size">20sp</dimen>
+
+    <!-- Login screen related dimensions -->
+    <dimen name="loginbutton_top_bottom_padding">10dp</dimen>
+    <dimen name="submitbutton_top_bottom_padding">10dp</dimen>
+
+    <!-- Contact ListView  related dimensions -->
+    <dimen name="contact_list_top_margin">20dp</dimen>
+    <dimen name="contact_list_bottom_margin">20dp</dimen>
+    <dimen name="contact_list_height_size">72dp</dimen>
+    <dimen name="contact_info_space_between_call_message">30dp</dimen>
+
+    <!-- Investment activity dimensions -->
+    <dimen name="contact_investment_for_height">124dp</dimen>
+
+    <!-- Toolbar bar dimensions -->
+    <dimen name="toolbar_elevation">4dp</dimen>
+
+    <!-- Advice Activity dimensions -->
+    <dimen name="advice_sliding_tabs_elevation">2dp</dimen>
+
+
+    <!-- Folio ListView dimensions -->
+    <dimen name="folio_list_header_row_height">48dp</dimen>
+    <dimen name="folio_list_header_row_left_margin">8dp</dimen>
+    <dimen name="folio_list_header_row_right_margin">8dp</dimen>
+    <dimen name="folio_list_header_row_bottom_margin">8dp</dimen>
+    <dimen name="folio_list_space_between_add_collapse">12dp</dimen>
+    <dimen name="folio_list_header_row_top_margin">8dp</dimen>
+
+    <dimen name="activity_horizontal_margin">10.67dp</dimen>
+    <dimen name="activity_vertical_margin">10.67dp</dimen>
+    <dimen name="list_top_margin">20dp</dimen>
+    <dimen name="icon_width_investment__detail_call">24dp</dimen>
+    <dimen name="icon_width_investment__detail_mail">24dp</dimen>
+    <dimen name="icon_width_investment__detail_pan">24dp</dimen>
+    <dimen name="icon_height_investment__detail_call">24dp</dimen>
+    <dimen name="icon_height_investment__detail_mail">24dp</dimen>
+    <dimen name="icon_height_investment__detail_pan">24dp</dimen>
+    <dimen name="icon_padding_left">4dp</dimen>
+    <dimen name="icon_padding_right">4dp</dimen>
+    <dimen name="list_height_size">72dp</dimen>
+    <dimen name="list_bottom_margin">20dp</dimen>
+    <dimen name="primary_list_textsize">16sp</dimen>
+    <dimen name="secondary_list_textsize">14sp</dimen>
+    <dimen name="form_padding_bottom">8dp</dimen>
+    <dimen name="form_padding_top">8dp</dimen>
+    <dimen name="tertiaryTextSize">12sp</dimen>
+
+    <!--  Redeem related dimensions -->
+    <dimen name="redeem_title_row_layout_height">32dp</dimen>
+    <dimen name="redeem_units_row_layout_height">54dp</dimen>
+    <dimen name="margine_for_alert">60dp</dimen>
+
+    <dimen name="text_large_size">32dp</dimen>
+    <dimen name="text_xlarge_size">36dp</dimen>
+    <dimen name="dash_icon_width">30dp</dimen>
+    <dimen name="dash_icon_height">30dp</dimen>
+
+    <dimen name="chart_text_size">20sp</dimen>
+    <dimen name="chart_investment">60dp</dimen>
+
+    <dimen name="goal_size">200dp</dimen>
+    <dimen name="recomm_width">54dp</dimen>
+    <dimen name="round_circle">18dp</dimen>
+</resources>
